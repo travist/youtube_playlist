@@ -10,10 +10,36 @@
     <!--[if lt IE 9]>
       <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
+    <link rel="stylesheet" href="http://code.jquery.com/mobile/1.1.0/jquery.mobile-1.1.0.css" />
+    <script type='text/javascript' src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.js"></script>
+    <script type='text/javascript' src="http://code.jquery.com/mobile/1.1.0/jquery.mobile-1.1.0.min.js"></script>
 
     <!-- Le styles -->
     <link href="{{ ASSET_PATH }}/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link href="{{ ASSET_PATH }}/css/style.css?body=1" rel="stylesheet" type="text/css" media="all">
+
+    <!-- Adding the addthis javascript. -->
+    {% if site.JB.sharing.provider and site.JB.sharing.addthis.pubid != '' and page.JB.sharing != false %}
+    {% case site.JB.sharing.provider %}
+    {% when "addthis" %}
+      <script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid={{site.JB.sharing.addthis.pubid}}"></script>
+    {% endcase %}
+    {% endif %}
+
+    <!-- Include the youtube playlist files. -->
+    <script type='text/javascript' src='{{ WIDGET_PATH }}/src/youtube.display.js'></script>
+    <script type='text/javascript' src='{{ WIDGET_PATH }}/src/youtube.playlist.js'></script>
+    <script type='text/javascript' src='{{ WIDGET_PATH }}/src/youtube.teaser.js'></script>
+    <script type='text/javascript' src='{{ WIDGET_PATH }}/youtube_playlist.js'></script>
+
+    <script type="text/javascript">
+      $(document).ready(function() {
+        $('.youtube-playlist').youtube_playlist({
+          playlist: 'https://gdata.youtube.com/feeds/api/videos?alt=json',
+          width: '800px'
+        });
+      });
+    </script>
 
     <!-- Le fav and touch icons -->
   <!-- Update these with your own images
@@ -25,7 +51,7 @@
   </head>
 
   <body>
-
+    <a href="https://github.com/travist/youtube_playlist"><img style="position: absolute; top: 0; right: 0; border: 0;" src="http://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png" alt="Fork me on GitHub" /></a>
     <div class="navbar">
       <div class="navbar-inner">
         <div class="container">
@@ -42,11 +68,12 @@
     <div class="container">
 
       <div class="content">
+        {% include JB/sharing %}
         {{ content }}
       </div>
 
       <footer>
-        <p>&copy; {{ site.author.name }} 2012 
+        <p>&copy; {{ site.author.name }} 2012
           with help from <a href="http://jekyllbootstrap.com" target="_blank" title="The Definitive Jekyll Blogging Framework">Jekyll Bootstrap</a>
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>
         </p>

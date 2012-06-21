@@ -17,6 +17,12 @@
       {% assign ASSET_PATH = site.JB.ASSET_PATH %}
     {% else %}
       {% capture ASSET_PATH %}{{ BASE_PATH }}/assets/themes/{{ page.theme.name }}{% endcapture %}
-    {% endif %}  
+    {% endif %}
+
+    {% if site.JB.WIDGET_PATH %}
+      {% assign WIDGET_PATH = site.JB.WIDGET_PATH %}
+    {% else %}
+      {% capture WIDGET_PATH %}{{ BASE_PATH }}/assets/youtube_playlist{% endcapture %}
+    {% endif %}
   {% endif %}
 {% endcapture %}{% assign jbcache = nil %}
